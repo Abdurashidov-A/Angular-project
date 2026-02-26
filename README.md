@@ -1,4 +1,4 @@
-# Pizza Menu (Angular 19+)
+# Test project (Angular 19+)
 
 Проект мигрирован с React на Angular 19+ в формате standalone-компонента.
 
