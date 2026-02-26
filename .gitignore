@@ -9,7 +9,9 @@
 /coverage
 
 # production
+/dist
 /build
+/.angular
 
 # misc
 .DS_Store

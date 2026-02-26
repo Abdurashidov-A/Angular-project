@@ -1,0 +1,72 @@
+<main class="app">
+  <section class="panel">
+    <header class="header">
+      <div>
+        <p class="header-label">Раздел</p>
+        <h1 class="header-title">{{ activeTab }}</h1>
+      </div>
+
+      <div class="header-stats">
+        <ng-container *ngIf="activeTab !== 'Тип 1'; else tabHint">
+          <span class="stat-pill">Выбрано: {{ selectedCount }}</span>
+          <span class="stat-pill">Сумма: {{ totalValue }}</span>
+        </ng-container>
+
+        <ng-template #tabHint>
+          <span class="header-hint">Откройте "Тип 2" для работы</span>
+        </ng-template>
+      </div>
+    </header>
+
+    <div class="content">
+      <aside class="sidebar">
+        <p class="sidebar-title">Разделы</p>
+        <button
+          *ngFor="let tab of tabs"
+          type="button"
+          class="tab"
+          [class.tab-active]="activeTab === tab"
+          (click)="selectTab(tab)"
+        >
+          <span class="tab-dot"></span>
+          <span>{{ tab }}</span>
+        </button>
+      </aside>
+
+      <section *ngIf="activeTab === 'Тип 1'" class="items intro">
+        <div class="intro-card">
+          <p class="intro-badge">Mini Dashboard</p>
+          <h2 class="intro-title">Панель выбора пунктов</h2>
+          <p class="intro-text">
+            Откройте раздел "Тип 2", чтобы отметить элементы и сразу увидеть
+            итоговые показатели в шапке.
+          </p>
+          <button class="cta-button" type="button" (click)="selectTab(tabs[1])">
+            Перейти в Тип 2
+          </button>
+        </div>
+      </section>
+
+      <section *ngIf="activeTab === 'Тип 2'" class="items">
+        <div class="items-list">
+          <label
+            *ngFor="let item of items; let i = index; trackBy: trackById"
+            class="item-row"
+            [class.item-selected]="isSelected(item.id)"
+            [style.animationDelay.ms]="i * 90"
+          >
+            <span class="item-checkbox">
+              <input
+                type="checkbox"
+                [checked]="isSelected(item.id)"
+                (change)="toggleItem(item.id)"
+              />
+              <span class="item-title">{{ item.name }}</span>
+            </span>
+            <span class="item-value">Value: {{ item.value }}</span>
+          </label>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
